@@ -28,6 +28,22 @@ def update_summoner_sheet(lol_watcher, service, sheets, prim_summoner):
     columns.append(("Champion", [riotcollect.champions[key]['champion_data']['id'] for key in order]))
     columns.append(("Level", [riotcollect.champions[key].get('championLevel',0) for key in order]))
     columns.append(("XP", [riotcollect.champions[key].get('championPoints',0) for key in order]))
+    columns.append(("Chest", ['Accrued' if riotcollect.champions[key].get('chestGranted',False) else 'Available' for key in order]))
+
+    ## tokens
+    s_tokens = []
+    for key in order:
+        tokens = riotcollect.champions[key].get('tokensEarned')
+        level = riotcollect.champions[key].get('championLevel',0)
+        if tokens is None or level < 5:
+            s_tokens.append('NaN')
+        elif level == 5:
+            s_tokens.append(f'{tokens}/2')
+        elif level == 6:
+            s_tokens.append(f'{tokens}/3')
+        else:
+            s_tokens.append('Completed')
+    columns.append(('Tokens', s_tokens))
 
     total_reset = os.environ.get('CHAMPION_SHEET_TOTAL_RESET','no') == 'yes'
     if total_reset:
