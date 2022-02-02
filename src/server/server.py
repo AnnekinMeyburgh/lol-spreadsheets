@@ -61,5 +61,7 @@ def update_summoner_sheet(lol_watcher, service, sheets, prim_summoner):
 def run(lol_watcher, service):
     prim_summoners = get_prim_summoners(service)
     sheets = get_lol_sheet_names(service)
+
+    # could possibility multi-thread this
     for prim_summoner in prim_summoners:
         update_summoner_sheet(lol_watcher, service, sheets, prim_summoner)
