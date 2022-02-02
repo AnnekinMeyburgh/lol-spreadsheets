@@ -1,0 +1,7 @@
+version: '3'
+services:
+  lol-spreadsheets:
+    restart: on-failure
+    build: .
+    ports:
+      - "4333:4333"
