@@ -52,7 +52,6 @@ def update_summoner_sheet(lol_watcher, service, sheets, prim_summoner):
     if prim_summoner.name not in sheets or total_reset:
         create_lol_sheet(service, prim_summoner.name, from_sheet='ChampionStatsBase')
 
-    # TODO: make use of batch update
     for i, (column_name, column) in enumerate(columns):
         column_id = ascii_uppercase[i]
         update_lol_sheet(service, prim_summoner.name, f"{column_id}1:{column_id}{len(column)+1}", [[column_name] + column], major_dimension='COLUMNS')
